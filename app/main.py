@@ -21,14 +21,15 @@ def sha256_hash_str(to_hash: str) -> str:
 
 
 def brute_force_password() -> None:
-    num = -1
-    while PASSWORDS_TO_BRUTE_FORCE:
-        num += 1
+    remaining = set(PASSWORDS_TO_BRUTE_FORCE)
+    for num in range(100000000):
         hacked_password = str(num).zfill(8)
         hashed_password = sha256_hash_str(hacked_password)
-        if hashed_password in PASSWORDS_TO_BRUTE_FORCE:
-            PASSWORDS_TO_BRUTE_FORCE.remove(hashed_password)
+        if hashed_password in remaining:
+            remaining.remove(hashed_password)
             print(f"Password for {hashed_password} is {hacked_password}")
+            if not remaining:
+                break
 
 
 
