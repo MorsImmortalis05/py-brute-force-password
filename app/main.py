@@ -21,7 +21,15 @@ def sha256_hash_str(to_hash: str) -> str:
 
 
 def brute_force_password() -> None:
-    pass
+    num = -1
+    while PASSWORDS_TO_BRUTE_FORCE:
+        num += 1
+        hacked_password = str(num).zfill(8)
+        hashed_password = sha256_hash_str(hacked_password)
+        if hashed_password in PASSWORDS_TO_BRUTE_FORCE:
+            PASSWORDS_TO_BRUTE_FORCE.remove(hashed_password)
+            print(f"Password for {hashed_password} is {hacked_password}")
+
 
 
 if __name__ == "__main__":
